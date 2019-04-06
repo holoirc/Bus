@@ -16,6 +16,6 @@ android {
 
 dependencies {
     implementation 'net.sf.trove4j:trove4j:3.+'
-    implementation 'com.google.guava:guava:24.1-jre'
+    implementation 'com.google.guava:guava:23.5-android'
 }
 
