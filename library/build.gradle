@@ -1,11 +1,11 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
 
     defaultConfig {
         minSdkVersion 23
-        targetSdkVersion 27
+        targetSdkVersion 28
     }
 
     compileOptions {
@@ -16,6 +16,6 @@ android {
 
 dependencies {
     implementation 'net.sf.trove4j:trove4j:3.+'
-    implementation 'com.google.guava:guava:23.5-android'
+    implementation 'com.google.guava:guava:28.0-android'
 }
 
