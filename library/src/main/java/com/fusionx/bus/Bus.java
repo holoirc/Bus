@@ -65,9 +65,7 @@ public class Bus {
 
     private synchronized void registerInternal(final Object registeredObject, final int priority,
             final boolean sticky) {
-        if (mSubscriberMap.get(registeredObject) != null) {
-            throw new IllegalArgumentException();
-        }
+        if (mSubscriberMap.get(registeredObject) != null) return;
 
         List<Method> methods = sClassMethodCache.get(registeredObject.getClass());
         final boolean fromCache = methods != null;
@@ -130,15 +128,18 @@ public class Bus {
 
     private synchronized void unregisterInternal(Object registedObject) {
         final List<SubscribedMethod> methodList = mSubscriberMap.get(registedObject);
-        if (methodList == null) {
-            throw new IllegalArgumentException();
-        }
+        if (methodList == null) return;
+
         for (final SubscribedMethod subscribedMethod : methodList) {
             final List<SubscribedMethod> list = mEventToSubscriberMap.get(subscribedMethod
                     .getEventClass());
-            list.remove(subscribedMethod);
-            if (list.isEmpty()) {
-                mEventToSubscriberMap.remove(subscribedMethod.getEventClass());
+
+            if (list != null) {
+                list.remove(subscribedMethod);
+
+                if (list.isEmpty()) {
+                    mEventToSubscriberMap.remove(subscribedMethod.getEventClass());
+                }
             }
         }
         mSubscriberMap.remove(registedObject);
